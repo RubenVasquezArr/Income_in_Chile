@@ -54,6 +54,22 @@ casen[migrant=="2. Chile y otro país"|
 casen[migrant=="3. Otro país (extranjeros)",migrant:="Migrant"]
 
 casen[,migrant:=as.factor(as.character(migrant))]
+
+#fix id too long
+
+casen[,id:=1:nrow(casen)]
+
+#quintiles
+
+casen[,quantile:=""]
+
+casen[raw_salary<=380000 ,salary_quantile:="1. 1st quintile"]
+casen[raw_salary>380000 & raw_salary<=450000, salary_quantile:="2. 2nd quintile"]
+casen[raw_salary>450000 & raw_salary<=600000, salary_quantile:="3. 3rd quintile"]
+casen[raw_salary>600000 & raw_salary<=1000000,salary_quantile:="4. 4th quintile"]
+casen[raw_salary>1000000 ,salary_quantile:="5. 5th quintile"]
+casen[is.na(raw_salary)| raw_salary<=0,quantile:="0. No salary"]
+
 #-------- Variables selection ####
 
 #Identifying numeric variables wich are not ids,nor expansion factors
@@ -155,7 +171,7 @@ ggplot(casen, aes(x=raw_salary, y=indgn_comunity )) +
 #Concluded the variables study, we only are going to save these for the modeling part
 
 
-casen<- casen[,c("id_indv",
+casen<- casen[,c("id",
                  "region",
                  "rural_or_urban",
                  "age",
@@ -166,7 +182,9 @@ casen<- casen[,c("id_indv",
                  "working_hours",
                  "business_size",
                  "raw_salary",
-                 "migrant")]
+                 "migrant",
+                 "salary_quantile"
+                 )]
 
 #saving
 
