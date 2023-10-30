@@ -30,7 +30,7 @@ library(ggplot2)
 library(mlr3extralearners)
 library(mlr3learners)
 library(ranger)
-
+library(xgboost)
 #-------- Open data ####
 
 casen<-fread("data\\processed\\Casen_2022_for_modeling.csv",stringsAsFactors = T)
@@ -48,14 +48,17 @@ casen[,migrant:=relevel(migrant, ref = "No migrant")]
 #
 
 casen<-casen[,c(#"raw_salary",
-"study_years",
-"age",
-"region",
-"gender",
-"working_hours",
-"migrant",
-"salary_quantile")]
+  "study_years",
+  "age",
+  "region",
+  "gender",
+  "working_hours",
+  "migrant",
+  "salary_quantile")]
 
+casen[,study_years:=as.numeric(study_years)]
+casen[,age:=as.numeric(age)]
+casen[,working_hours:=as.numeric(working_hours)]
 
 
 task = as_task_classif(casen,target = 'salary_quantile')
@@ -63,8 +66,7 @@ task = as_task_classif(casen,target = 'salary_quantile')
 train_set = sample(task$row_ids, 0.67 * task$nrow)
 test_set = setdiff(task$row_ids, train_set)
 
-learner = lrn("classif.ranger", importance = "impurity")
-
+learner = lrn("classif.nnet")
 learner$train(task, row_ids = train_set)
 pred_train = learner$predict(task, row_ids=train_set)
 pred_test = learner$predict(task, row_ids=test_set)
@@ -85,14 +87,4 @@ pred_test
 
 pred_test$score(measures)
 mean(casen$raw_salary)
-
-
-pred_train$ 
-
-
-
-#random forest
-
-learner = lrn("regr.ranger")
-learner$train(task, row_ids = train_set)
 

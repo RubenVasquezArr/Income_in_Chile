@@ -2,13 +2,17 @@
 title: "README"
 author: "Rubén Vásquez Arredondo"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  md_document:
+    variant: markdown_github
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(data.table)
+
 
 casen<-fread("data\\processed\\Casen_2022_processed.csv",stringsAsFactors = T)
 
@@ -20,8 +24,7 @@ sum(casen[!is.na(raw_salary),raw_salary])/nrow(casen[!is.na(raw_salary),])
 
 chile <- casen[rep(1:.N,expr)]
 
-Quantile(casen$raw_salary, probs = seq(0, 1, 0.2 ),  na.rm = T)
-Quantile(chile$raw_salary, probs = seq(0, 1, 0.2 ),  na.rm = T)
+quantile(casen$raw_salary, probs = seq(0, 1, 0.2 ),  na.rm = T)
 
 mean(casen$raw_salary,  na.rm = T)
 mean(chile$raw_salary,  na.rm = T)

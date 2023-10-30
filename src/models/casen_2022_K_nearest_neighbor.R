@@ -30,6 +30,7 @@ library(ggplot2)
 library(mlr3extralearners)
 library(mlr3learners)
 library(ranger)
+library(kknn)
 
 #-------- Open data ####
 
@@ -48,13 +49,13 @@ casen[,migrant:=relevel(migrant, ref = "No migrant")]
 #
 
 casen<-casen[,c(#"raw_salary",
-"study_years",
-"age",
-"region",
-"gender",
-"working_hours",
-"migrant",
-"salary_quantile")]
+  "study_years",
+  "age",
+  "region",
+  "gender",
+  "working_hours",
+  "migrant",
+  "salary_quantile")]
 
 
 
@@ -63,7 +64,8 @@ task = as_task_classif(casen,target = 'salary_quantile')
 train_set = sample(task$row_ids, 0.67 * task$nrow)
 test_set = setdiff(task$row_ids, train_set)
 
-learner = lrn("classif.ranger", importance = "impurity")
+#learner = lrn("classif.svm")
+learner = lrn("classif.kknn")
 
 learner$train(task, row_ids = train_set)
 pred_train = learner$predict(task, row_ids=train_set)
@@ -88,11 +90,11 @@ mean(casen$raw_salary)
 
 
 pred_train$ 
-
-
-
-#random forest
-
-learner = lrn("regr.ranger")
+  
+  
+  
+  #random forest
+  
+  learner = lrn("regr.ranger")
 learner$train(task, row_ids = train_set)
 

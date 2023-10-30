@@ -47,23 +47,25 @@ casen[,migrant:=relevel(migrant, ref = "No migrant")]
 
 #
 
-casen<-casen[,c(#"raw_salary",
-"study_years",
-"age",
-"region",
-"gender",
-"working_hours",
-"migrant",
-"salary_quantile")]
+casen<-casen[,c("raw_salary",
+  "study_years",
+  "age",
+  "region",
+  "gender",
+  "working_hours",
+  "migrant"#,
+  #"salary_quantile"
+  )
+  ]
 
 
 
-task = as_task_classif(casen,target = 'salary_quantile')
+task = as_task_regr(casen,target = 'raw_salary')
 
 train_set = sample(task$row_ids, 0.67 * task$nrow)
 test_set = setdiff(task$row_ids, train_set)
 
-learner = lrn("classif.ranger", importance = "impurity")
+learner = lrn("regr.ranger")
 
 learner$train(task, row_ids = train_set)
 pred_train = learner$predict(task, row_ids=train_set)
@@ -71,12 +73,11 @@ pred_test = learner$predict(task, row_ids=test_set)
 
 pred_train
 
+ggplot(pred_train,aes(x=truth, y=response)) +
+    geom_point() +
+    geom_smooth(method='lm')
 
-measures <-msrs("classif.acc")
-
-pred_test$confusion
-
-#measures = msrs(c('regr.rsq'))
+measures = msrs(c('regr.rsq'))
 pred_train$score(measures)
 
 
@@ -88,11 +89,5 @@ mean(casen$raw_salary)
 
 
 pred_train$ 
-
-
-
-#random forest
-
-learner = lrn("regr.ranger")
-learner$train(task, row_ids = train_set)
-
+  
+  
