@@ -1,0 +1,29 @@
+                 truth
+response          1. 1st quintile 2. 2nd quintile
+  1. 1st quintile            1668             312
+  2. 2nd quintile            1733            3745
+  3. 3rd quintile             159             489
+  4. 4th quintile             182             410
+  5. 5th quintile              60             140
+                 truth
+response          3. 3rd quintile 4. 4th quintile
+  1. 1st quintile             200             104
+  2. 2nd quintile            2285            1260
+  3. 3rd quintile             576             469
+  4. 4th quintile             641            1030
+  5. 5th quintile             278             914
+                 truth
+response          5. 5th quintile
+  1. 1st quintile              34
+  2. 2nd quintile             235
+  3. 3rd quintile             155
+  4. 4th quintile             514
+  5. 5th quintile            1508
+
+
+ classif.acc   time_train time_predict 
+   0.4464164    0.2800000    0.0500000 
+
+
+The MSE is: 1.29
+The MAE is: 0.77

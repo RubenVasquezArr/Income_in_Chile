@@ -1,6 +1,6 @@
-# -------------------------------- Casen 2022 processing --------------------------------#
+# -------------------------------- Casen 2022 variable selection --------------------------------#
 
-#This script purpose is to filter and convert the raw data from casen 2022 survey.
+#This script purpose is to select and prepare the variables for the modeling part.
 
 #-------- Initial configuration ####
 
@@ -14,11 +14,6 @@ cat("\014")
 rm(list = ls())
 
 #------- Open libraries
-#install.packages("data.table")
-#install.packages("car")
-#install.packages("caret")
-#install.packages("corrplot")
-# install.packages("ggplot2")
 
 library(data.table)
 library(car)
@@ -37,7 +32,10 @@ casen<-fread("data\\processed\\Casen_2022_processed.csv",stringsAsFactors = T)
 #summary(casen)
 names(casen)
 
-#for this study, it would be recomendable to only analize people who recieve an income, since that is the study variable 
+#-------- transformation ####
+
+
+#for this study, it would be recommendable to only consider people who receive an income.
 
 casen<-casen[!is.na(raw_salary) &
                                raw_salary > 0,]
@@ -59,7 +57,7 @@ casen[,migrant:=as.factor(as.character(migrant))]
 
 casen[,id:=1:nrow(casen)]
 
-#quintiles
+#quantiles
 
 casen[,quantile:=""]
 
@@ -72,7 +70,7 @@ casen[is.na(raw_salary)| raw_salary<=0,quantile:="0. No salary"]
 
 #-------- Variables selection ####
 
-#Identifying numeric variables wich are not ids,nor expansion factors
+#Identifying numeric variables which are not ids,nor expansion factors for correlations
 
 numeric_casen<- casen[ , .SD, .SDcols = is.numeric]
 
@@ -81,12 +79,12 @@ numeric_casen <- numeric_casen[ ,..non_id_list]
 
 numeric_casen[,expr:=NULL]
 
-#there is people witout 
+#there is people without 
 
 #Calculating Correlation
 descrCor <- cor(numeric_casen,)
 
-# Print correlation matrix and look at max correlation
+# Print correlation matrix 
 print(descrCor)
 
 corrplot(descrCor, order = "FPC", method = "color", tl.cex = 0.7, tl.col = rgb(0, 0, 0))
@@ -94,7 +92,7 @@ corrplot(descrCor, order = "FPC", method = "color", tl.cex = 0.7, tl.col = rgb(0
 #this demonstrates that study years have a huge impact in raw salary, and a very weak correlation with family members and age. working hours may be an interesting variable.
 #an important note is that age is not correlated with income, but it is with study years, therefore some models could use it, such as kmeans or neural network. also, to comply with literature of mincer equation, we could use it as a proxy for experience.
 
-#now for categorical columns
+#now lets study the categorical columns
 
 #region
 
@@ -130,7 +128,7 @@ kruskal.test(raw_salary ~ sector_quality, data = casen)
 ggplot(casen, aes(x=raw_salary, y=sector_quality )) + 
   geom_boxplot()+ xlim( 0,2000000)
 
-#there is a powerful significance and variance. Chile is a very segregated country, therefore the quality of the neibourhud is not so independent. since it is an observation of the surroundigns and not of the income itself, we could will it as well.
+#there is a powerful significance and variance. Chile is a very segregated country, therefore the quality of the neighborhood is not so independent.
 
 #study_field
 

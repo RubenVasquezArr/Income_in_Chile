@@ -16,7 +16,7 @@ rm(list = ls())
 #------- Open libraries ####
 #install.packages("data.table")
 
-#data table is the fastest and most powerful library for all data related operations. data.table > dplyr Always!!
+#data table is the fastest and most powerful library for all data related operations. data.table > dplyr !! :)
 library(data.table)
 
 #readstata13 is the faster way to open dta files.
@@ -25,7 +25,7 @@ library(readstata13)
 #-------- Open data ####
 #choose.files()
 
-#this should take a minute. or seconds, if your computer is better than mine
+#this should take a minute. 
 casen<-read.dta13("data\\raw\\Base de datos Casen 2022 STATA.dta")
 casen<-as.data.table(casen)
 
@@ -38,12 +38,12 @@ head(casen[,1:10])
 
 #-------- Data manipulation ####
 
-#as detailed in the variables manual "Libro de códigos Base de datos Casen 2022.xlsx" (in the references files), for getting an individual id we have to paste the columns "folio" and  "id_persona"
+#as detailed in the variables manual "Libro de códigos Base de datos Casen 2022.xlsx"  to obtain an individual ID, we need to concatenate the 'folio' and 'id_persona' columns.
 
 casen[,id_indv:= paste0(folio,
                         id_persona)]
 
-#there is a lot of variables, but since we are going to study labor income, we will refer to the mincer equation (studies + experience) for independent variables, and others that called my attention
+#there are numerous variables available, but since we are going to study labor income, we will refer to the mincer equation (studies + experience) for independent variables, and others that seem interesting or potentially useful
 
 casen<-casen[,c("id_vivienda", #id from the house
                 "folio", #id of the family group

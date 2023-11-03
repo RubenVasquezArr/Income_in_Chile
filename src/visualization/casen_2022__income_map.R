@@ -49,6 +49,9 @@ chile[,region:= factor(region, levels = c(
 geo_regions <- generar_regiones()
 geo_regions <-sf::st_transform(geo_regions,'+proj=longlat +datum=WGS84')
 
+
+
+
 geo_regions$region<-""
 
 geo_regions$region[geo_regions$codigo_region == "01"]<-"Región de Tarapacá"
@@ -75,6 +78,18 @@ geo_regions<-merge(geo_regions, regions_data, by = "region")
 # Define la paleta de colores
 colors <- colorNumeric(palette = "YlOrRd", domain = geo_regions$median_salary)
 colors_inv <- colorNumeric(palette = "YlOrRd", domain = geo_regions$median_salary, reverse = TRUE)
+
+
+geo_regions <-sf::st_simplify(geo_regions, dTolerance = 0.01)
+geo_regions2 <-sf::st_simplify(geo_regions, dTolerance = 0.05)
+geo_regions3 <-sf::st_simplify(geo_regions, dTolerance = 0.1)
+geo_regions4<-sf::st_simplify(geo_regions, dTolerance = 1000)
+geo_regions<-geo_regions4
+
+object.size(geo_regions)
+object.size(geo_regions2)
+object.size(geo_regions4)
+object.size(geo_regions)
 
 
 # Crea el mapa Leaflet
