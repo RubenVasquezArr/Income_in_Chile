@@ -137,17 +137,21 @@ particular case
 We considered a range of machine learning models, Each can be found in
 this list
 
-Regression: - [Linear
-regression](./src/models/casen_2022_linear_regression.R)
+Regression:
 
-Classification: - [Suport vector
-machine](./src/models/casen_2022_suport_vector_machine.R) - [Single
-layer neural
-network](./src/models/casen_2022_single_layer_neural_network.R) -
-[random forest](./src/models/casen_2022_random_forest.R) - [naive
-bayes](./src/models/casen_2022_naive_bayes.R) - [K-nearest
-neighbors](./src/models/casen_2022_K_nearest_neighbor.R) - [extreme
-gradient boosting](./src/models/casen_2022_extreme_gradient_boosting.R)
+- [Linear regression](./src/models/casen_2022_linear_regression.R)
+
+Classification:
+
+- [Suport vector
+  machine](./src/models/casen_2022_suport_vector_machine.R)
+- [Single layer neural
+  network](./src/models/casen_2022_single_layer_neural_network.R)
+- [random forest](./src/models/casen_2022_random_forest.R)
+- [naive bayes](./src/models/casen_2022_naive_bayes.R)
+- [K-nearest neighbors](./src/models/casen_2022_K_nearest_neighbor.R)
+- [extreme gradient
+  boosting](./src/models/casen_2022_extreme_gradient_boosting.R)
 
 Due to prior
 [experiences](https://usach.primo.exlibrisgroup.com/permalink/56USACH_INST/172ual0/alma992065340806116),
@@ -228,9 +232,8 @@ so it should be easy to follow. The code is also commented to facilitate
 understanding.
 
 ![](README_files/figure-markdown_github/dallerandomforest.jpeg)<!-- -->
-<p style="text-align: center;">
-Random forest celebrating for winning the models competition. DALL·E 3
-</p>
+
+    Random forest celebrating for winning the models competition. DALL·E 3
 
 Thank you for reading this far!, I hope you found this useful. If you
 have any questions, please contact me at <Ruben.vasqueza@usach.cl>

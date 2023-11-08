@@ -222,15 +222,17 @@ After the variable preparation and selection, it is now time for the model analy
 We considered a range of machine learning models, Each can be found in this list
 
 Regression:
+
 - [Linear regression](./src/models/casen_2022_linear_regression.R)
 
 Classification:
+
 - [Suport vector machine](./src/models/casen_2022_suport_vector_machine.R)
-- [Single layer neural network](./src/models/casen_2022_single_layer_neural_network.R)
-- [random forest](./src/models/casen_2022_random_forest.R)
-- [naive bayes](./src/models/casen_2022_naive_bayes.R)
-- [K-nearest neighbors](./src/models/casen_2022_K_nearest_neighbor.R)
-- [extreme gradient boosting](./src/models/casen_2022_extreme_gradient_boosting.R)
+- [Single layer neural network](./src/models/casen_2022_single_layer_neural_network.R) 
+- [random forest](./src/models/casen_2022_random_forest.R) 
+- [naive bayes](./src/models/casen_2022_naive_bayes.R) 
+- [K-nearest neighbors](./src/models/casen_2022_K_nearest_neighbor.R) 
+- [extreme gradient boosting](./src/models/casen_2022_extreme_gradient_boosting.R) 
 
 
 Due to prior [experiences](https://usach.primo.exlibrisgroup.com/permalink/56USACH_INST/172ual0/alma992065340806116), as well as the presence of skewness, outliers, and the nature of the variables used in this task, the models are susceptible to overfitting or showing a bias towards median values. In order to mitigate these issues, the income has been categorized into quintiles, and the models were trained to classify the quintile rather than predict the specific numerical income. A better aproach would be to use deciles, but the capacity of the machine used for this task was not enough to train the models with this level of granularity.
@@ -279,8 +281,9 @@ In summary, the project achieved a reasonable degree of accuracy. Predicting the
 ```{r image, echo=FALSE, fig.height=4, fig.width=4}
 knitr::include_graphics("README_files/figure-markdown_github/dallerandomforest.jpeg")
 ```
-<p style="text-align: center;"> Random forest celebrating for winning the models competition. DALL·E 3 </p>
-
+```{r image_description, echo=FALSE,  comment=""}
+message("Random forest celebrating for winning the models competition. DALL·E 3")
+```
 
 Thank you for reading this far!, I hope you found this useful. If you have any questions, please contact me at Ruben.vasqueza@usach.cl
 
