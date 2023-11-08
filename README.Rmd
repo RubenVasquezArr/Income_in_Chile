@@ -4,7 +4,7 @@ author: "Rubén Vásquez Arredondo"
 date: "`r Sys.Date()`"
 output:
   md_document:
-    variant: markdown_github
+    variant: gfm
 ---
 
 ```{r setup, include=FALSE}
@@ -135,7 +135,7 @@ Since the mean income in Chile is greater than the median, we can imply that the
 
 Let's examine the distribution:
 
-```{r distribution_plot, echo=FALSE,fig.align = 'center',warning=FALSE,fig.fullwidth = TRUE}
+```{r distribution_plot, echo=FALSE,warning=FALSE,fig.fullwidth = TRUE}
 
 ggplot(data = chile, aes(x = raw_salary)) +
   geom_density(fill = "skyblue", color = "black",) +
@@ -153,7 +153,7 @@ Not only the distribution is very skewed to the right, but also the data is very
 For a geographical reference, see [this interactive map](https://rawcdn.githack.com/RubenVasquezArr/Income_in_Chile/f2ce5a200daf63579d3ddd452435a829ef16aecb/Chile_income_map.html) 
 
 
-```{r distribution_by_region, echo=FALSE,warning=FALSE,fig.align = 'center'}
+```{r distribution_by_region, echo=FALSE,warning=FALSE}
 
 
 
@@ -204,7 +204,7 @@ ggplot(chile, aes(x = migrant, y = raw_salary)) +
 
 ```
 
-We can observe that there is enough variability to regard both gender and migratory status as significant indicators of income. This highlights the social reality of the country, where macro-level data distinctly portray these differences.
+There is a clear effect by gender, and enough variability to regard migratory status as significant indicator of income (Kruskal-Wallis p-value < 2.2e-16). This highlights the social reality of the country, where macro-level data distinctly portray discrimination and lower income.
 
 Before diving into model analysis, we prepared the dataset by performing data cleaning, feature engineering, and feature selection. The process can be fount in the scripts [casen_2022_processing](./src/features/casen_2022_processing.R) and [casen_2022_variable_selection](./src/features/casen_2022_variable_selection.R)
 
@@ -222,15 +222,15 @@ After the variable preparation and selection, it is now time for the model analy
 We considered a range of machine learning models, Each can be found in this list
 
 Regression:
--[Linear regression](./src/models/casen_2022_linear_regression.R)
+- [Linear regression](./src/models/casen_2022_linear_regression.R)
 
 Classification:
--[Suport vector machine](./src/models/casen_2022_suport_vector_machine.R)
--[Single layer neural network](./src/models/casen_2022_single_layer_neural_network.R)
--[random forest](./src/models/casen_2022_random_forest.R)
--[naive bayes](./src/models/casen_2022_naive_bayes.R)
--[K-nearest neighbors](./src/models/casen_2022_K_nearest_neighbor.R)
--[extreme gradient boosting](./src/models/casen_2022_extreme_gradient_boosting.R)
+- [Suport vector machine](./src/models/casen_2022_suport_vector_machine.R)
+- [Single layer neural network](./src/models/casen_2022_single_layer_neural_network.R)
+- [random forest](./src/models/casen_2022_random_forest.R)
+- [naive bayes](./src/models/casen_2022_naive_bayes.R)
+- [K-nearest neighbors](./src/models/casen_2022_K_nearest_neighbor.R)
+- [extreme gradient boosting](./src/models/casen_2022_extreme_gradient_boosting.R)
 
 
 Due to prior [experiences](https://usach.primo.exlibrisgroup.com/permalink/56USACH_INST/172ual0/alma992065340806116), as well as the presence of skewness, outliers, and the nature of the variables used in this task, the models are susceptible to overfitting or showing a bias towards median values. In order to mitigate these issues, the income has been categorized into quintiles, and the models were trained to classify the quintile rather than predict the specific numerical income. A better aproach would be to use deciles, but the capacity of the machine used for this task was not enough to train the models with this level of granularity.
@@ -251,7 +251,7 @@ When applying each model, the data was divided into training (67%) and testing (
 
 The resulting measures of the models can be found in the following table:
 
-```{r results, echo=FALSE,fig.align = 'center'}
+```{r results, echo=FALSE}
 
 data <- data.frame(
   Model = c("Random Forest", "SVM", "Neural network", "XGboost", "Naive bayes", "KNN", "Regression"),
@@ -276,11 +276,10 @@ The results show that the random forest model is the best performing model, with
 In summary, the project achieved a reasonable degree of accuracy. Predicting the income of very high-income individuals remains challenging due to the absence of descriptive variables that capture this phenomenon, therefore is only possible to classify by groups at the moment. Among the models we tested, Random Forest emerged as the top performer, however, the difference in performance between the best and worst model is not drastic, so the choice of model should be based on the specific needs of the task. The code for this project can be found in the [src](./src) folder. The data is not included in this repository due to its size, but it can be downloaded from the [official website](https://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-2022) of the Casen survey. The data is in Spanish, but the code is in English, so it should be easy to follow. The code is also commented to facilitate understanding.
 
 
-```{r image, echo=FALSE, fig.align = "center", fig.height=4, fig.width=4}
+```{r image, echo=FALSE, fig.height=4, fig.width=4}
 knitr::include_graphics("README_files/figure-markdown_github/dallerandomforest.jpeg")
-
 ```
-<p style="text-align: center;"> *Random forest celebrating for winning the models competition. DALL·E 3* </p>
+<p style="text-align: center;"> Random forest celebrating for winning the models competition. DALL·E 3 </p>
 
 
 Thank you for reading this far!, I hope you found this useful. If you have any questions, please contact me at Ruben.vasqueza@usach.cl

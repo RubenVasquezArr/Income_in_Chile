@@ -10,16 +10,16 @@ earnings if they were to move to the country.
 
 ## Contents
 
--   [The project](#the-project)
-    -   [Project Overview](#project-overview)
-    -   [Key Objectives](#key-objectives)
-    -   [Key Findings](#key-findings)
--   [Income in Chile](#income-in-chile)
--   [Model Analysis](#model-analysis)
-    -   [Model Selection](#model-selection)
-    -   [Model Measures](#model-measures)
-    -   [Model Comparison](#model-comparison)
--   [Conclusion](#conclusion)
+- [The project](#the-project)
+  - [Project Overview](#project-overview)
+  - [Key Objectives](#key-objectives)
+  - [Key Findings](#key-findings)
+- [Income in Chile](#income-in-chile)
+- [Model Analysis](#model-analysis)
+  - [Model Selection](#model-selection)
+  - [Model Measures](#model-measures)
+  - [Model Comparison](#model-comparison)
+- [Conclusion](#conclusion)
 
 ## The project
 
@@ -32,20 +32,20 @@ individuals should anticipate based on their personal characteristics
 
 ### Key Objectives
 
--   **Data Exploration & Feature Engineering :** We begin by data
-    exploration, aiming to understand the structure and functioning of
-    the information. Subsequently, we investigate the variables of
-    interest concerning the target variable, which is individuals’ work
-    income. These data are prepared and made ready for modeling.
+- **Data Exploration & Feature Engineering :** We begin by data
+  exploration, aiming to understand the structure and functioning of the
+  information. Subsequently, we investigate the variables of interest
+  concerning the target variable, which is individuals’ work income.
+  These data are prepared and made ready for modeling.
 
--   **Machine Learning:** For this project, a range of machine learning
-    models is employed to estimate income. It start with a linear
-    regression, providing essential insights to comprehend the
-    relationships between variables. Subsequently, the necessary
-    techniques are implemented.
+- **Machine Learning:** For this project, a range of machine learning
+  models is employed to estimate income. It start with a linear
+  regression, providing essential insights to comprehend the
+  relationships between variables. Subsequently, the necessary
+  techniques are implemented.
 
--   **Evaluation and Insights:** We assess the models to identify the
-    optimal one that fulfills the project’s objectives
+- **Evaluation and Insights:** We assess the models to identify the
+  optimal one that fulfills the project’s objectives
 
 ### Key Findings
 
@@ -91,7 +91,7 @@ percentiles show us that income explodes in the higher quantiles.
 
 Let’s examine the distribution:
 
-<img src="README_files/figure-markdown_github/distribution_plot-1.png" style="display: block; margin: auto;" />
+![](README_files/figure-gfm/distribution_plot-1.png)<!-- -->
 
 Not only the distribution is very skewed to the right, but also the data
 is very concentrated in the lower quantiles. this is a problem because
@@ -101,19 +101,20 @@ distribution of the income by region, from north to south:
 For a geographical reference, see [this interactive
 map](https://rawcdn.githack.com/RubenVasquezArr/Income_in_Chile/f2ce5a200daf63579d3ddd452435a829ef16aecb/Chile_income_map.html)
 
-<img src="README_files/figure-markdown_github/distribution_by_region-1.png" style="display: block; margin: auto;" />
-As can be observed, there is also great regional variation, with the El
-Maule and El Ñuble regions being the poorest, while regions in close
-proximity to the mining industry, located in the northern part of the
-country, near the Antofagasta region, exhibit the highest incomes.
-Finally, let’s examine other variables that may be related to income:
+![](README_files/figure-gfm/distribution_by_region-1.png)<!-- --> As can
+be observed, there is also great regional variation, with the El Maule
+and El Ñuble regions being the poorest, while regions in close proximity
+to the mining industry, located in the northern part of the country,
+near the Antofagasta region, exhibit the highest incomes. Finally, let’s
+examine other variables that may be related to income:
 
-<img src="README_files/figure-markdown_github/migration_gender-1.png" width="50%" /><img src="README_files/figure-markdown_github/migration_gender-2.png" width="50%" />
+<img src="README_files/figure-gfm/migration_gender-1.png" width="50%" /><img src="README_files/figure-gfm/migration_gender-2.png" width="50%" />
 
-We can observe that there is enough variability to regard both gender
-and migratory status as significant indicators of income. This
-highlights the social reality of the country, where macro-level data
-distinctly portray these differences.
+There is a clear effect by gender, and enough variability to regard
+migratory status as significant indicator of income (Kruskal-Wallis
+p-value \< 2.2e-16). This highlights the social reality of the country,
+where macro-level data distinctly portray discrimination and lower
+income.
 
 Before diving into model analysis, we prepared the dataset by performing
 data cleaning, feature engineering, and feature selection. The process
@@ -136,15 +137,16 @@ particular case
 We considered a range of machine learning models, Each can be found in
 this list
 
-Regression: -[Linear
+Regression: - [Linear
 regression](./src/models/casen_2022_linear_regression.R)
 
-Classification: -[Suport vector
-machine](./src/models/casen_2022_suport_vector_machine.R) -[Single layer
-neural network](./src/models/casen_2022_single_layer_neural_network.R)
--[random forest](./src/models/casen_2022_random_forest.R) -[naive
-bayes](./src/models/casen_2022_naive_bayes.R) -[K-nearest
-neighbors](./src/models/casen_2022_K_nearest_neighbor.R) -[extreme
+Classification: - [Suport vector
+machine](./src/models/casen_2022_suport_vector_machine.R) - [Single
+layer neural
+network](./src/models/casen_2022_single_layer_neural_network.R) -
+[random forest](./src/models/casen_2022_random_forest.R) - [naive
+bayes](./src/models/casen_2022_naive_bayes.R) - [K-nearest
+neighbors](./src/models/casen_2022_K_nearest_neighbor.R) - [extreme
 gradient boosting](./src/models/casen_2022_extreme_gradient_boosting.R)
 
 Due to prior
@@ -165,20 +167,20 @@ testing (33%) subsets, with evaluations consistently performed on the
 test subset. To assess the effectiveness of income classification, the
 following metrics were identified:
 
--   **Accuracy:** A measure of how many correct predictions the model
-    made compared to the total number of predictions.
--   **Mean Squared Error (MSE):** A metric that calculates the average
-    of the squared differences between predicted and actual values. This
-    metric is commonly used in numerical prediction, but it can also be
-    used in [ordinal
-    classification](https://link.springer.com/chapter/10.1007/978-3-642-01818-3_25)
-    to better represent the closeness of the predicted value to the
-    actual value, punishing more for larger differences.
--   **Mean Absolute Error (MAE):** a more digestible metric that
-    represent the differences between predicted and actual values.
--   **Training Time (seconds):** The time it takes to train the model.
--   **Prediction Time (seconds):** The time it takes to predict the test
-    subset.
+- **Accuracy:** A measure of how many correct predictions the model made
+  compared to the total number of predictions.
+- **Mean Squared Error (MSE):** A metric that calculates the average of
+  the squared differences between predicted and actual values. This
+  metric is commonly used in numerical prediction, but it can also be
+  used in [ordinal
+  classification](https://link.springer.com/chapter/10.1007/978-3-642-01818-3_25)
+  to better represent the closeness of the predicted value to the actual
+  value, punishing more for larger differences.
+- **Mean Absolute Error (MAE):** a more digestible metric that represent
+  the differences between predicted and actual values.
+- **Training Time (seconds):** The time it takes to train the model.
+- **Prediction Time (seconds):** The time it takes to predict the test
+  subset.
 
 ### Model Comparison
 
@@ -225,9 +227,9 @@ of the Casen survey. The data is in Spanish, but the code is in English,
 so it should be easy to follow. The code is also commented to facilitate
 understanding.
 
-<img src="README_files/figure-markdown_github/dallerandomforest.jpeg" style="display: block; margin: auto;" />
+![](README_files/figure-markdown_github/dallerandomforest.jpeg)<!-- -->
 <p style="text-align: center;">
-*Random forest celebrating for winning the models competition. DALL·E 3*
+Random forest celebrating for winning the models competition. DALL·E 3
 </p>
 
 Thank you for reading this far!, I hope you found this useful. If you
