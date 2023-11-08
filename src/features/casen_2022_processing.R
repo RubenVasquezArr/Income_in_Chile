@@ -28,6 +28,7 @@ library(readstata13)
 #this should take a minute. 
 casen<-read.dta13("data\\raw\\Base de datos Casen 2022 STATA.dta")
 casen<-as.data.table(casen)
+#the database can be downloaded at https://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-2022 -> Base de datos ->	"Base de datos Casen 2022 STATA (versión 20 de octubre 2023)"	
 
 #-------- Initial exploration ####
 

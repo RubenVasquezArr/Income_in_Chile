@@ -1,20 +1,36 @@
 # Income prediction in Chile
 
-Chile is a country known for its significant economic and social
+Chile is a country known for its significant economic and geographical
 diversity. Understanding how people’s incomes change is of great
-interest, both on a personal and societal level. The income individuals
-anticipate when moving to a new country is a highly relevant aspect in
-the context of expatriation and migration. The Casen survey, combined
-with machine learning tools, enables the study of this phenomenon.
+interest, both on a personal and societal level. The Casen survey, when
+combined with machine learning tools, enables the study of this
+phenomenon and the creation of predictive models. These models could be
+useful, for example, for migrants seeking to estimate their potential
+earnings if they were to move to the country.
 
-**Project Overview:**
+## Contents
+
+-   [The project](#the-project)
+    -   [Project Overview](#project-overview)
+    -   [Key Objectives](#key-objectives)
+    -   [Key Findings](#key-findings)
+-   [Income in Chile](#income-in-chile)
+-   [Model Analysis](#model-analysis)
+    -   [Model Selection](#model-selection)
+    -   [Model Measures](#model-measures)
+    -   [Model Comparison](#model-comparison)
+-   [Conclusion](#conclusion)
+
+## The project
+
+### Project Overview
 
 The aim of this project is to utilize the data from the CASEN Survey to
 apply and compare income prediction models in Chile. The ultimate goal
 is to identify the model that most accurately categorizes the income
 individuals should anticipate based on their personal characteristics
 
-**Key Objectives:**
+### Key Objectives
 
 -   **Data Exploration & Feature Engineering :** We begin by data
     exploration, aiming to understand the structure and functioning of
@@ -31,7 +47,7 @@ individuals should anticipate based on their personal characteristics
 -   **Evaluation and Insights:** We assess the models to identify the
     optimal one that fulfills the project’s objectives
 
-**Key Findings:**
+### Key Findings
 
 It was identified that income is highly correlated with years of
 education and influenced by the region of residence, gender, and
@@ -63,7 +79,6 @@ understand them, lest see some basic statistics:
     The income`s standard deviation in Chile is: 800,122 Chilean Pesos 
 
     The quantiles are the following:
-    The quantiles are the following:
 
          25%      50%      75%      90%      95%      99%    99.9%   99.99% 
       400000   500000   750000  1200000  1800000  3200000  7000000 12000000 
@@ -83,9 +98,8 @@ is very concentrated in the lower quantiles. this is a problem because
 the model will be biased to predict low incomes. lets see the
 distribution of the income by region, from north to south:
 
-(for a geographical reference, see [this interactive
+For a geographical reference, see [this interactive
 map](https://rawcdn.githack.com/RubenVasquezArr/Income_in_Chile/f2ce5a200daf63579d3ddd452435a829ef16aecb/Chile_income_map.html)
-)
 
 <img src="README_files/figure-markdown_github/distribution_by_region-1.png" style="display: block; margin: auto;" />
 As can be observed, there is also great regional variation, with the El
@@ -93,9 +107,6 @@ Maule and El Ñuble regions being the poorest, while regions in close
 proximity to the mining industry, located in the northern part of the
 country, near the Antofagasta region, exhibit the highest incomes.
 Finally, let’s examine other variables that may be related to income:
-
-    ## Warning: Removed 1138846 rows containing non-finite values (`stat_boxplot()`).
-    ## Removed 1138846 rows containing non-finite values (`stat_boxplot()`).
 
 <img src="README_files/figure-markdown_github/migration_gender-1.png" width="50%" /><img src="README_files/figure-markdown_github/migration_gender-2.png" width="50%" />
 
@@ -154,20 +165,22 @@ testing (33%) subsets, with evaluations consistently performed on the
 test subset. To assess the effectiveness of income classification, the
 following metrics were identified:
 
-\-**Accuracy:** A measure of how many correct predictions the model made
-compared to the total number of predictions -**Mean Squared Error
-(MSE):** A metric that calculates the average of the squared differences
-between predicted and actual values. This metric is commonly used in
-numerical prediction, but it can also be used in [ordinal
-classification](https://link.springer.com/chapter/10.1007/978-3-642-01818-3_25)
-to better represent the closeness of the predicted value to the actual
-value, punishing more for larger differences. -**Mean Absolute Error
-(MAE):**: a more digestible metric that represent the differences
-between predicted and actual values. -**Training Time (seconds):** The
-time it takes to train the model. -**Prediction Time (seconds):** The
-time it takes to predict the test subset.
+-   **Accuracy:** A measure of how many correct predictions the model
+    made compared to the total number of predictions.
+-   **Mean Squared Error (MSE):** A metric that calculates the average
+    of the squared differences between predicted and actual values. This
+    metric is commonly used in numerical prediction, but it can also be
+    used in [ordinal
+    classification](https://link.springer.com/chapter/10.1007/978-3-642-01818-3_25)
+    to better represent the closeness of the predicted value to the
+    actual value, punishing more for larger differences.
+-   **Mean Absolute Error (MAE):** a more digestible metric that
+    represent the differences between predicted and actual values.
+-   **Training Time (seconds):** The time it takes to train the model.
+-   **Prediction Time (seconds):** The time it takes to predict the test
+    subset.
 
-## Model Comparison
+### Model Comparison
 
 The resulting measures of the models can be found in the following
 table:
@@ -195,7 +208,27 @@ income quintile with an accuracy of 0.46 (compared to 0.2 of a random
 guess), and mae of 0.72, meaning that the predicted quintile is on
 average 0.72 quintiles away from the actual quintile.
 
+## Conclusion
+
+In summary, the project achieved a reasonable degree of accuracy.
+Predicting the income of very high-income individuals remains
+challenging due to the absence of descriptive variables that capture
+this phenomenon, therefore is only possible to classify by groups at the
+moment. Among the models we tested, Random Forest emerged as the top
+performer, however, the difference in performance between the best and
+worst model is not drastic, so the choice of model should be based on
+the specific needs of the task. The code for this project can be found
+in the [src](./src) folder. The data is not included in this repository
+due to its size, but it can be downloaded from the [official
+website](https://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-2022)
+of the Casen survey. The data is in Spanish, but the code is in English,
+so it should be easy to follow. The code is also commented to facilitate
+understanding.
+
 <img src="README_files/figure-markdown_github/dallerandomforest.jpeg" style="display: block; margin: auto;" />
+<p style="text-align: center;">
+*Random forest celebrating for winning the models competition. DALL·E 3*
+</p>
 
 Thank you for reading this far!, I hope you found this useful. If you
 have any questions, please contact me at <Ruben.vasqueza@usach.cl>
